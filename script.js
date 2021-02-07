@@ -157,5 +157,14 @@ const questions = [
         { text: 'Billy', correct: false },
         { text: 'Samson', correct: false }
     ]
+  },
+  {
+    question: 'What do I put on my cheeseburger?',
+    answers: [
+        { text: 'Cheese only', correct: false },
+        { text: 'Lettuce, Mustard, Mayo, Onion, Cheese', correct: true },
+        { text: 'Tomato, Ketchup, Lettuce, Mustard, Mayo, Onion', correct: false },
+        { text: 'Mustard, Mayo, Onion', correct: false }
+    ]
   }
 ]
