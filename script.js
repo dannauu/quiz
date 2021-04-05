@@ -4,7 +4,7 @@ var startBtn = document.getElementById("start");
 var questionTitle = document.getElementById("question-title");
 var choicesDiv = document.getElementById("choices");
 var currentQuestionIndex = 0;
-var penalty = 15
+var score = 0;
 
 var questions = [
   {
@@ -50,11 +50,11 @@ function startGame() {
   });
 }
 
-function timer(seconds) {
-  var seconds = 75,
-    $seconds = document.querySelector("#countdown");
+function timer() {
+  var seconds = 75;
+  $seconds = document.querySelector("#countdown");
   (function countdown() {
-    $seconds.textContent = seconds + " second" + (seconds == 1 ? "" : "s");
+    $seconds.textContent = seconds;
     if (seconds-- > 0) setTimeout(countdown, 1000);
   })();
 }
@@ -79,17 +79,62 @@ function getQuestion() {
 function checkAnswer(e) {
   let element = e.target;
 
-    if (element.textContent == questions[currentQuestionIndex].answer) {
-      let correctAnswerDiv = document.createElement("div")
-      correctAnswerDiv.textContent = "Correct answer, good job!"
-      correctAnswerDiv.setAttribute("class", "correctAnswer")
-      choicesDiv.appendChild(correctAnswerDiv)
-    } else {
-      console.log('Wrong Answer')
-      let correctAnswerDiv = document.createElement("div")
-      correctAnswerDiv.textContent = "Wrong answer, nice try!"
-      correctAnswerDiv.setAttribute("class", "wrongAnswer")
-      choicesDiv.appendChild(correctAnswerDiv)
-    }
+  if (element.textContent == questions[currentQuestionIndex].answer) {
+    let correctAnswerDiv = document.createElement("div");
+    correctAnswerDiv.textContent = "Correct answer, good job!";
+    correctAnswerDiv.setAttribute("class", "correctAnswer");
+    choicesDiv.appendChild(correctAnswerDiv);
+    score++;
+    nextQuestion();
+  } else {
+    console.log("Wrong Answer");
+    let correctAnswerDiv = document.createElement("div");
+    correctAnswerDiv.textContent = "Wrong answer, nice try!";
+    correctAnswerDiv.setAttribute("class", "wrongAnswer");
+    choicesDiv.appendChild(correctAnswerDiv);
+    nextQuestion();
+  }
 }
+
+function nextQuestion() {
+  currentQuestionIndex++;
+  let nextQ = questions[currentQuestionIndex];
+
+  if (currentQuestionIndex == 5) {
+    gameOver();
+  } else {
+    questionTitle.textContent = nextQ.title;
+
+    choicesDiv.innerHTML = "";
+
+    nextQ.choices.forEach(function (choice, i) {
+      var choicesBtn = document.createElement("button");
+      choicesBtn.setAttribute("class", "choice");
+      choicesBtn.setAttribute("value", choice);
+      choicesBtn.textContent = choice;
+      choicesDiv.appendChild(choicesBtn);
+      choicesBtn.addEventListener("click", checkAnswer);
+    });
+  }
+}
+
+function gameOver() {
+  let gameOver = document.getElementById("end-screen");
+  gameOver.classList.remove("hide");
+  document.getElementById("final-score").innerHTML = score + "/5";
+}
+
 startGame();
+
+document.getElementById("submit").addEventListener("click", function() {
+  let userScore = document.getElementById("final-score").textContent;
+  var initials = document.getElementById("initials").value;
+  localStorage.setItem('Score', userScore)
+  localStorage.setItem('Initials', initials)
+  let userInitials = localStorage.getItem('Initials');
+  let userHighscore = localStorage.getItem('Score');
+  let highscoresOL = document.getElementById("highscores");
+  console.log(initials);
+});
+
+

@@ -87,15 +87,17 @@ li:nth-child(odd) {
   right: 10px;
 }
 
-.correctAnswer {
-  background-color: green;
-  border-radius: 15px;
-  text-align: center;
+#scoreText {
+  font-weight: bolder;
+  background-color: yellow;
+  width: 35%;
 }
 
-.wrongAnswer {
-  background-color: red;
-  border-radius: 15px;
-  text-align: center;
-  color: white;
+.highscoresH1 {
+  font-size: 50px;
+}
+
+#highscores {
+  font-weight: 1000;
+  color: green;
 }
