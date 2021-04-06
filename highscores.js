@@ -6,8 +6,8 @@ window.onload = function () {
   highscoresOL.innerHTML = `${userInitialsCaps} = ${userHighscore}`;
 };
 
-document.getElementById('clearScores').addEventListener('click', function() {
+document.getElementById("clearScores").addEventListener("click", function () {
   localStorage.clear();
-  let clearScores = document.getElementById('highscores');
-  clearScores.innerText = '';
-})
+  let clearScores = document.getElementById("highscores");
+  clearScores.innerText = "";
+});

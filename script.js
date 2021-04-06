@@ -42,7 +42,7 @@ var questions = [
   },
 ];
 
-startBtn.addEventListener("click", function() {
+startBtn.addEventListener("click", function () {
   $seconds = document.querySelector("#countdown");
   (function countdown() {
     $seconds.textContent = seconds;
@@ -122,8 +122,8 @@ function gameOver() {
   let gameOver = document.getElementById("end-screen");
   gameOver.classList.remove("hide");
   document.getElementById("final-score").innerHTML = score + "/5";
-  let timer = document.getElementById('countdown');
-  timer.classList.add('hide')
+  let timer = document.getElementById("countdown");
+  timer.classList.add("hide");
 }
 
 startGame();
