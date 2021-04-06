@@ -5,3 +5,9 @@ window.onload = function () {
   let userInitialsCaps = userInitials.toUpperCase();
   highscoresOL.innerHTML = `${userInitialsCaps} = ${userHighscore}`;
 };
+
+document.getElementById('clearScores').addEventListener('click', function() {
+  localStorage.clear();
+  let clearScores = document.getElementById('highscores');
+  clearScores.innerText = '';
+})

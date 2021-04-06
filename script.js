@@ -5,6 +5,7 @@ var questionTitle = document.getElementById("question-title");
 var choicesDiv = document.getElementById("choices");
 var currentQuestionIndex = 0;
 var score = 0;
+var seconds = 75;
 
 var questions = [
   {
@@ -41,22 +42,20 @@ var questions = [
   },
 ];
 
-function startGame() {
-  startBtn.addEventListener("click", function () {
-    timer();
-    startQuiz.classList.add("hide");
-    questionDiv.classList.remove("hide");
-    getQuestion();
-  });
-}
-
-function timer() {
-  var seconds = 75;
+startBtn.addEventListener("click", function() {
   $seconds = document.querySelector("#countdown");
   (function countdown() {
     $seconds.textContent = seconds;
     if (seconds-- > 0) setTimeout(countdown, 1000);
   })();
+});
+
+function startGame() {
+  startBtn.addEventListener("click", function () {
+    startQuiz.classList.add("hide");
+    questionDiv.classList.remove("hide");
+    getQuestion();
+  });
 }
 
 function getQuestion() {
@@ -92,6 +91,7 @@ function checkAnswer(e) {
     correctAnswerDiv.textContent = "Wrong answer, nice try!";
     correctAnswerDiv.setAttribute("class", "wrongAnswer");
     choicesDiv.appendChild(correctAnswerDiv);
+    seconds -= 10;
     nextQuestion();
   }
 }
@@ -122,19 +122,15 @@ function gameOver() {
   let gameOver = document.getElementById("end-screen");
   gameOver.classList.remove("hide");
   document.getElementById("final-score").innerHTML = score + "/5";
+  let timer = document.getElementById('countdown');
+  timer.classList.add('hide')
 }
 
 startGame();
 
-document.getElementById("submit").addEventListener("click", function() {
+document.getElementById("submit").addEventListener("click", function () {
   let userScore = document.getElementById("final-score").textContent;
   var initials = document.getElementById("initials").value;
-  localStorage.setItem('Score', userScore)
-  localStorage.setItem('Initials', initials)
-  let userInitials = localStorage.getItem('Initials');
-  let userHighscore = localStorage.getItem('Score');
-  let highscoresOL = document.getElementById("highscores");
-  console.log(initials);
+  localStorage.setItem("Score", userScore);
+  localStorage.setItem("Initials", initials);
 });
-
-
